@@ -9,6 +9,7 @@ import  reducer from './reducer.js'
 import './config.js'
 import Login from './container/login/login'
 import Register from './container/register/register'
+import AuthRouter from './component/authrouter/authrouter'
 
 const store = createStore(reducer,compose(
     applyMiddleware(thunk),
@@ -21,6 +22,7 @@ class Index extends React.Component {
             <Provider>
                 <BrowserRouter>
                 <div>
+                <AuthRouter></AuthRouter>
                     <Switch>
                         <Route exact path="/"  ></Route>
                         <Route path="/login" component={Login}></Route>
