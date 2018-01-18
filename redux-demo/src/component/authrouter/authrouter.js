@@ -31,7 +31,7 @@ export default class Authrouter extends React.Component {
 
     render() {
         return (
-            <div>11</div>
+            <div></div>
         )
     }
 }

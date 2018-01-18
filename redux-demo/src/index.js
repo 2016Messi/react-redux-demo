@@ -19,7 +19,7 @@ const store = createStore(reducer,compose(
 class Index extends React.Component {
     render() {
         return (
-            <Provider>
+            <Provider store={store}>
                 <BrowserRouter>
                 <div>
                 <AuthRouter></AuthRouter>
