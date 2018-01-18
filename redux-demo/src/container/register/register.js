@@ -6,8 +6,20 @@ export default class Register extends React.Component{
     constructor(props){
         super(props);
         this.state= {
+            user : '',
+            pwd : '' ,
+            repeatpwd :'',
             type :'genius'
         }
+        this.getRegisterMes=this.getRegisterMes.bind(this);
+    }
+    getRegisterMes(){
+        console.log(this.state)
+    }
+    handleChange(val,type){
+        this.setState({
+            [type]:val
+        })
     }
     render(){
         const RadioItem = Radio.RadioItem        
@@ -15,22 +27,22 @@ export default class Register extends React.Component{
             <div>
                 <Logo></Logo>
                 <List>
-                    <InputItem>用户名</InputItem>
+                    <InputItem onChange={val=>this.handleChange(val,'user')} >用户名</InputItem>
                     <WhiteSpace></WhiteSpace>
-                    <InputItem>密码</InputItem>
+                    <InputItem onChange={val=>this.handleChange(val,'pwd')} type='password'>密码</InputItem>
                     <WhiteSpace></WhiteSpace>
-                    <InputItem>确认密码</InputItem>                
+                    <InputItem onChange={val=>this.handleChange(val,'repeatpwd')} type='password'>确认密码</InputItem>                
                     <WhiteSpace></WhiteSpace>    
-                    <RadioItem checked={this.state.type==='genius'}>
+                    <RadioItem checked={this.state.type==='genius'} onChange={()=>this.handleChange("genius",'type')} >
                         牛人
                     </RadioItem>
        
-                    <RadioItem  checked={this.state.type==='boss'}>
+                    <RadioItem  checked={this.state.type==='boss'} onChange={()=>this.handleChange("boss",'type')}>
                         BOSS
                     </RadioItem>
                 </List>
                 <WhiteSpace></WhiteSpace>
-                <Button type="primary" >注册</Button>
+                <Button type="primary" onClick={this.getRegisterMes}>注册</Button>
 
             </div> 
         )
