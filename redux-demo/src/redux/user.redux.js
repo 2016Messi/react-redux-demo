@@ -21,6 +21,9 @@ export function user(state=initState,action){
             return state    
     }
 }
+export function text(){
+    alert(1);
+}
 
 function registerSucess(data){
     return {type:REGISTER_SUCCESS,playdata:data};
@@ -49,5 +52,4 @@ export function register({user,pwd,repeatpwd,type}){
             }
         )
     }
-
 }
