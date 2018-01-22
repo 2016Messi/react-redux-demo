@@ -12,7 +12,6 @@ Router.get('/list',function(req,res){
 
 Router.post('/register',function(req,res){
     // console.log()
- 
     const {user,pwd,type} = req.body;
     User.findOne({user},function(err,doc){
         if(doc){
