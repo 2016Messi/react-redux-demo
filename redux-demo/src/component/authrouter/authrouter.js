@@ -7,6 +7,7 @@ export default class Authrouter extends React.Component {
 
     componentWillMount() {
         const publicList = ['/login','/register'];
+ 
         const pathName = this.props.location.pathname;
         if(publicList.includes(pathName)){
             return null;
