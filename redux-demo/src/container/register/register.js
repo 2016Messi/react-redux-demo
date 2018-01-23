@@ -21,7 +21,7 @@ export default class Register extends React.Component{
     getRegisterMes(){
         this.props.register(this.state);
         
-        console.log(this.state)
+       
     }
     handleChange(val,type){
         this.setState({

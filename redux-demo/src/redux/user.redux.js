@@ -2,7 +2,7 @@ import axios from 'axios'
 import { getRedirectPath } from '../until'
 const REGISTER_SUCCESS = "REGISTER_SUCCESS"
 const ERROR_MSG = "ERROR_MSG"
-
+const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const initState = {
     redireactTo:'',
     isAuth:false,
@@ -18,28 +18,45 @@ export function user(state=initState,action){
             return {...state,msg:'',isAuth:true,redireactTo:getRedirectPath(action.playdata),...action.playdata}
         case ERROR_MSG:
             return {...state,isAuth:false,msg:action.msg}
+        case LOGIN_SUCCESS:        
+            return {...state,msg:'',isAuth:true,redireactTo:getRedirectPath(action.playdata),...action.playdata}            
         default: 
             return state    
     }
 }
-export function text(){
-    alert(1);
+export function login({user,pwd}){
+    if(!user||!pwd){
+        return msgError('用户名密码必须输入')
+    }
+    return dispatch=>{
+        axios.post('/user/login',{user,pwd}).then(
+            res=>{
+                if(res.status===200&&res.data.code===0){
+                    dispatch(loginSuccess(res.data.data))
+                }else{
+                    dispatch(msgError(res.data.msg))
+                }
+            }
+        )
+    }
 }
 
 function registerSucess(data){
     return {type:REGISTER_SUCCESS,playdata:data};
 }
-
-function registerError(msg){
+function loginSuccess(data){
+    return {type:LOGIN_SUCCESS,playdata:data}
+}
+function msgError(msg){
     return {msg,type:ERROR_MSG}
 }
 export function register({user,pwd,repeatpwd,type}){
  
     if(!user||!pwd){
-        return registerError("用户名密码必须输入")
+        return msgError("用户名密码必须输入")
     }
     if(pwd!==repeatpwd){
-        return registerError("您输入的密码不同")        
+        return msgError("您输入的密码不同")        
     }
 
     return dispatch=>{
@@ -48,7 +65,7 @@ export function register({user,pwd,repeatpwd,type}){
                 if(res.status===200&&res.data.code===0){
                     dispatch(registerSucess({user,pwd,type}))
                 }else{
-                    dispatch(registerError(res.data.msg))
+                    dispatch(msgError(res.data.msg))
                 }
             }
         )
