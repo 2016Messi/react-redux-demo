@@ -1,61 +1,38 @@
 import axios from 'axios' 
 import { getRedirectPath } from '../until'
-const REGISTER_SUCCESS = "REGISTER_SUCCESS"
+ 
+const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = "ERROR_MSG"
-const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 const LOGIN_DATA = 'LOGIN_DATA'
 
 const initState = {
     redireactTo:'',
-    isAuth:false,
     user: '',
+    msg:'',
     type:''
 }
 export function user(state=initState,action){
     switch(action.type){
-        case REGISTER_SUCCESS: 
-            return {...state,msg:'',isAuth:true,redireactTo:getRedirectPath(action.playdata),...action.playdata}
+        case AUTH_SUCCESS: 
+            return {...state,msg:'' ,redireactTo:getRedirectPath(action.playdata),...action.playdata}
         case ERROR_MSG:
-            return {...state,isAuth:false,msg:action.msg}
+            return {...state ,msg:action.msg}
         case LOGIN_DATA:
             return {...state ,...action.playdata}
-        case LOGIN_SUCCESS:        
-            return {...state,msg:'',isAuth:true,redireactTo:getRedirectPath(action.playdata),...action.playdata}            
         default: 
             return state    
     }
 }
 
-export function loginData(LoginData){
-    return {type:LOGIN_DATA,playdata:LoginData}
+function authSucess(data){
+    return {type:AUTH_SUCCESS,playdata:data};
 }
-
-export function login({user,pwd}){
-    if(!user||!pwd){
-        return msgError('用户名密码必须输入')
-    }
-    return dispatch=>{
-        axios.post('/user/login',{user,pwd}).then(
-            res=>{
-                if(res.status===200&&res.data.code===0){
-                    dispatch(loginSuccess(res.data.data))
-                }else{
-                    dispatch(msgError(res.data.msg))
-                }
-            }
-        )
-    }
-}
-
-function registerSucess(data){
-    return {type:REGISTER_SUCCESS,playdata:data};
-}
-function loginSuccess(data){
-    return {type:LOGIN_SUCCESS,playdata:data}
-}
+ 
 function msgError(msg){
     return {msg,type:ERROR_MSG}
 }
+
+//注册模块
 export function register({user,pwd,repeatpwd,type}){
  
     if(!user||!pwd){
@@ -69,7 +46,44 @@ export function register({user,pwd,repeatpwd,type}){
         axios.post('/user/register',{user,pwd,type}).then(
             res=>{
                 if(res.status===200&&res.data.code===0){
-                    dispatch(registerSucess({user,type}))
+                    dispatch(authSucess({user,type}))
+                }else{
+                    dispatch(msgError(res.data.msg))
+                }
+            }
+        )
+    }
+}
+
+//登陆模块
+export function login({user,pwd}){
+    if(!user||!pwd){
+        return msgError('用户名密码必须输入')
+    }
+    return dispatch=>{
+        axios.post('/user/login',{user,pwd}).then(
+            res=>{
+                if(res.status===200&&res.data.code===0){
+                    dispatch(authSucess(res.data.data))
+                }else{
+                    dispatch(msgError(res.data.msg))
+                }
+            }
+        )
+    }
+}
+
+//保存登陆状态
+export function loginData(LoginData){
+    return {type:LOGIN_DATA,playdata:LoginData}
+}
+
+export function updata(data){
+    return dispatch=>{
+        axios.post('/user/updata',data)
+        .then(res=>{
+                if(res.status===200&&res.data.code===0){
+                    dispatch(authSucess(res.data.data))
                 }else{
                     dispatch(msgError(res.data.msg))
                 }

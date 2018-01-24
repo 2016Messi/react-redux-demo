@@ -11,6 +11,8 @@ import Login from './container/login/login'
 import Register from './container/register/register'
 import AuthRouter from './component/authrouter/authrouter'
 import Bossinfo from './container/bossinfo/bossinfo'
+import Geniusinfo from './container/geniusinfo/geniusinfo'
+
 const store = createStore(reducer,compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
@@ -25,6 +27,7 @@ class Index extends React.Component {
                 <AuthRouter></AuthRouter>
                     <Switch>
                         <Route path="/bossinfo" component={Bossinfo} ></Route>
+                        <Route path="/geniusinfo" component={Geniusinfo} ></Route>                        
                         <Route path="/login" component={Login}></Route>
                         <Route path="/register" component={Register}></Route>     
                     </Switch>
