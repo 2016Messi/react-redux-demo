@@ -12,11 +12,15 @@ import Register from './container/register/register'
 import AuthRouter from './component/authrouter/authrouter'
 import Bossinfo from './container/bossinfo/bossinfo'
 import Geniusinfo from './container/geniusinfo/geniusinfo'
+import Dashboard from './component/dashboard/dashboard'
+import './index.css'
 
 const store = createStore(reducer,compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
 ));
+
+ 
 
 class Index extends React.Component {
     render() {
@@ -30,6 +34,7 @@ class Index extends React.Component {
                         <Route path="/geniusinfo" component={Geniusinfo} ></Route>                        
                         <Route path="/login" component={Login}></Route>
                         <Route path="/register" component={Register}></Route>     
+                        <Route component={Dashboard}></Route>
                     </Switch>
                 </div>
                 </BrowserRouter>
