@@ -11,17 +11,18 @@ class Geniusinfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            avatar:'',
             title: '',
             desc: ''
         }
-        this.onChange = this.onChange.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
-    onChange(type, val) {
+    handleChange(type, val) {
         this.setState({
             [type]: val
         })
     }
-
+ 
     render() {
         const path = this.props.location.pathname
         const redirect = this.props.redireactTo
@@ -36,10 +37,10 @@ class Geniusinfo extends React.Component {
                     })
                 }} ></AvatarSelector>
                 <WhiteSpace></WhiteSpace>
-                <InputItem onChange={(val) => this.onChange('title', val)}>求职岗位</InputItem>
+                <InputItem onChange={(val) => this.handleChange('title', val)}>求职岗位</InputItem>
  
-                <TextareaItem autoHeight={true} title="个人简介" onChange={(val) => this.onChange('desc', val)} row={7}></TextareaItem>
-                <Button type='primary' onClick={() => this.props.updata(this.state)} >保存</Button>
+                <TextareaItem autoHeight={true} title="个人-简介" onChange={(val) => this.handleChange('desc', val)} row={7}></TextareaItem>
+                <Button type='primary' onClick={()=>this.props.updata(this.state)} >保存</Button>
             </div>
         )
     }

@@ -7,7 +7,7 @@ const _filter = {'pwd':0,'_v':0}
 
 
 Router.get('/list',function(req,res){
-    
+    // User.remove({},function(){})
     User.find({},function(err,doc){
         return res.json(doc);
     })
@@ -19,7 +19,6 @@ Router.post('/register',function(req,res){
         if(doc){
             return res.json({code:1,msg:'用户名重复'})
         }
-
         const userModel = new User({user,type,pwd:untils.md5(untils.md5(pwd))})
 
         userModel.save(function(e,d){    

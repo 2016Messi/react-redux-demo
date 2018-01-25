@@ -83,7 +83,9 @@ export function updata(data){
         axios.post('/user/updata',data)
         .then(res=>{
                 if(res.status===200&&res.data.code===0){
-                    dispatch(authSucess(res.data.data))
+                    dispatch(authSucess(Object.assign(data,res.data.data)))
+
+                    console.log(Object.assign(data,res.data.data))
                 }else{
                     dispatch(msgError(res.data.msg))
                 }

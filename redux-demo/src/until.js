@@ -4,7 +4,7 @@ export function getRedirectPath({type,avatar}){
     //  user.type /boss /SVGAnimatedNumberList
     //  user.avatar /bossinfo /geniusinfo
 
-    let url = (type === 'boss')? '/boss' : '/genius'
+    let url = (type === "boss")? '/boss' : '/genius'
     if (!avatar){
         url += 'info'
     }

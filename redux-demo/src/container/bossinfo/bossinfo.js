@@ -17,9 +17,9 @@ class Bossinfo extends React.Component {
             money: '',
             desc: ''
         }
-        this.onChange = this.onChange.bind(this)
+        this.onChange = this.handleChange.bind(this)
     }
-    onChange(type, val) {
+    handleChange(type, val) {
         this.setState({
             [type]: val
         })
@@ -30,7 +30,7 @@ class Bossinfo extends React.Component {
         const redirect = this.props.redireactTo
         return (
             <div>
-                {redirect&&redirect!==path?<Redirect to={redirect} />:null}
+                {redirect&&redirect!==path? <Redirect to={redirect} />:null}
                 <NavBar mode='dark'>BOSS</NavBar>
                 {/* 修改头像 */}
                 <AvatarSelector selectorAvatar={(avatarName) => {
@@ -39,10 +39,10 @@ class Bossinfo extends React.Component {
                     })
                 }} ></AvatarSelector>
                 <WhiteSpace></WhiteSpace>
-                <InputItem onChange={(val) => this.onChange('title', val)}>招聘职位</InputItem>
-                <InputItem onChange={(val) => this.onChange('company', val)}>公司名称</InputItem>
-                <InputItem onChange={(val) => this.onChange('money', val)}>职位薪资</InputItem>
-                <TextareaItem autoHeight={true} title="职位描述" onChange={(val) => this.onChange('desc', val)} row={7}></TextareaItem>
+                <InputItem onChange={(val) => this.handleChange('title', val)}>招聘职位</InputItem>
+                <InputItem onChange={(val) => this.handleChange('company', val)}>公司名称</InputItem>
+                <InputItem onChange={(val) => this.handleChange('money', val)}>职位薪资</InputItem>
+                <TextareaItem autoHeight={true} title="职位描述" onChange={(val) => this.handleChange('desc', val)} row={7}></TextareaItem>
                 <Button type='primary' onClick={() => this.props.updata(this.state)} >保存</Button>
             </div>
         )
