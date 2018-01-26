@@ -2,7 +2,7 @@ import React from 'react'
 import Logo from './../../component/logo/logo'
 import { Button, WingBlank, WhiteSpace, InputItem, List, Radio } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { register, user } from './../../redux/user.redux'
+import { register  } from './../../redux/user.redux'
 
 import { Redirect } from 'react-router-dom'
 @connect(state => (state.user), { register })

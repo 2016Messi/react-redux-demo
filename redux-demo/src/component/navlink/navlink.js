@@ -1,16 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 import { TabBar } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
 
 @withRouter
 class NavLinkBar extends React.Component{
-    // static PropTypes = {
-    //     data :PropTypes.array.isRequired
-    // }
+
+
     render(){
         const navList = this.props.data.filter(v=>!v.hide);
-  console.log(this.props)
+
         return (
             <div>
                 <TabBar>

@@ -17,18 +17,14 @@ export default class Authrouter extends React.Component {
             return null;
         }
         //获取用户信息
-        axios.get('/user/info').
-            then(res => {
+        axios.get('/user/info').then(res => {
                 if(res.status === 200){
                     if(res.data.code === 0){
-                        console.log('登陆成功')
+                        // console.log('登陆成功')
                         this.props.loginData(res.data.data)
-                        console.log(res.data.data)
                     }else{
-                        console.log(this.props.history);
                         this.props.history.push('/login')
                     }
-                    console.log(res.data);
                 }
             }
             );
