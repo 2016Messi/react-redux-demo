@@ -47,10 +47,13 @@ class Dashboard extends React.Component {
             component: User
         }
         ]
+        const myTitle = 
+           this.props.location.pathname==='/login' ?
+           null:navList.find(v => v.path === this.props.location.pathname).title
         return (
             <div>
                 <header>
-                    <NavBar mode='dard'>{navList.find(v => v.path === this.props.location.pathname).title}</NavBar>
+                    <NavBar mode='dard'>{myTitle}</NavBar>
                 </header>
                 <article>
                     <Switch>

@@ -31,7 +31,7 @@ export default class Login extends React.Component {
     render() {
         return (
             <div>
-                {this.props.redireactTo?<Redirect to={this.props.redireactTo} />:null}
+                {(this.props.redireactTo&&this.props.redireactTo!=='/login')?<Redirect to={this.props.redireactTo} />:null}
                 <Logo></Logo>
                 <WingBlank>
                     <List>

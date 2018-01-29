@@ -4,7 +4,7 @@ import { getRedirectPath } from '../until'
 const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const ERROR_MSG = "ERROR_MSG"
 const LOGIN_DATA = 'LOGIN_DATA'
-
+const LOGOUT = 'LOGOUT'
 const initState = {
     redireactTo:'',
     user: '',
@@ -19,6 +19,8 @@ export function user(state=initState,action){
             return {...state ,msg:action.msg}
         case LOGIN_DATA:
             return {...state ,...action.playdata}
+        case LOGOUT:
+            return {...initState, redireactTo:'/login' }
         default: 
             return state    
     }
@@ -78,6 +80,7 @@ export function loginData(LoginData){
     return {type:LOGIN_DATA,playdata:LoginData}
 }
 
+//保存用户信息
 export function updata(data){
     return dispatch=>{
         axios.post('/user/updata',data)
@@ -91,4 +94,9 @@ export function updata(data){
             }
         )
     }
+}
+
+// 注销
+export function logoutSubmit(){
+    return {type:LOGOUT}
 }
