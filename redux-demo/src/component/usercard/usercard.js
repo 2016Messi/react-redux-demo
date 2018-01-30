@@ -1,11 +1,20 @@
 import React from 'react'
 import { Card, WhiteSpace } from 'antd-mobile'
+import { withRouter } from 'react-router-dom'
+
+@withRouter
 class UserCard extends React.Component {
+    handleClick(val){
+        this.props.history.push(`/chat/${val.user}`)
+    }
     render() {
         const datas = this.props.cardData;
         const cards = datas.map((val) => (
             val.avatar ? (
-                <div key={val._id}>
+                <div key={val._id} 
+                    onClick={()=>this.handleClick(val)}
+                    
+                >
                     <Card>
                         <Card.Header
                             title={val.user}

@@ -8,7 +8,7 @@ export default function myFrom(Comp){
             this.handleChange = this.handleChange.bind(this)
         }
         handleChange(val,type){
-            console.log(val,type)
+            // console.log(val,type)
             this.setState({
                 [type]:val
             })
@@ -18,6 +18,5 @@ export default function myFrom(Comp){
                 <Comp {...this.props} handleChange={this.handleChange} state={this.state} ></Comp>
             )
         }
-    
     }
 }
