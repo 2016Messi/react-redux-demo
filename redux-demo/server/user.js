@@ -3,6 +3,7 @@ const Router = express.Router();
 const untils = require('utility')
 const model = require('./model.js');
 const User = model.getModel('user');
+const Chat = model.getModel('chat');
 const _filter = {'pwd':0,'_v':0}
 
 
@@ -13,6 +14,19 @@ Router.get('/list',function(req,res){
         return res.json({ code:0,data:doc });
     })
 })
+
+//用户信息列表
+Router.get('/getmsglist',function(req,res){
+    const user = req.cookies.user;
+
+    Chat.findOne({},function(err,doc){
+        if(!err){
+            return res.json({code:0,msgs:doc})
+        }
+    })
+})
+
+
 
 Router.post('/register',function(req,res){
     const {user,pwd,type} = req.body;

@@ -24,7 +24,7 @@ const models = {
         'chatid':{'type':String, 'require':true},    //聊天人id标识
         'from':{'type':String, 'require':true},     //信息来源
         'to':{'type':String, 'require':true},       //信息发给谁
-        'read':{'type':String,'default':fasle},      //初始状态未读
+        'read':{'type':String,'default':false},      //初始状态未读
         'content':{'type':String, 'require':true,'default':true},       //信息内容   
         'create_time':{type:Number,default:new Date().getTime()}        //发送的时间
     }

@@ -13,7 +13,6 @@ class UserCard extends React.Component {
             val.avatar ? (
                 <div key={val._id} 
                     onClick={()=>this.handleClick(val)}
-                    
                 >
                     <Card>
                         <Card.Header

@@ -1,41 +1,47 @@
 import React from 'react'
 import io from 'socket.io-client'
 import { List, InputItem } from 'antd-mobile'
+import { connect } from 'react-redux'
+import { getMsgList, sendMsg } from './../../redux/chat.redux'
 
-const socket = io('ws://localhost:9093')
+ 
 
-
+@connect(state => state, { getMsgList, sendMsg })
 
 class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             text: '',
-            msg:[]
+            msg: []
         }
     }
     componentDidMount() {
-        console.log(this.state.msg)
-        socket.on('recvmsg', (data)=> {
-            console.log(data)
-             
-            this.setState({
-                msg:[...this.state.msg,data.text]
-            })
-        })
+        // console.log(this.state.msg)
+
+        //页面加载后获取聊天列表
+        // this.props.getMsgList()
+
     }
 
     handleSubmit() {
         // console.log(this.props.state);
-        socket.emit('sendmsg', { text: this.state.text })
+     
         this.setState({ text: '' })
+        const from = this.props.user._id;   //来自  
+        const to = this.props.match.params.user;             //发送至
+   
+        const msg = this.state.text;     //信息内容
+        this.props.sendMsg({from,to,msg})
     }
 
     render() {
+        console.log(1);
+
         // console.log(this.props)
         return (
             <div>
-                {this.state.msg.map((v,i)=>{
+                {this.state.msg.map((v, i) => {
                     return <p key={i} >{v}</p>
                 })}
                 <div className="stick-footer">你点击的用户是：{this.props.match.params.user}
