@@ -2,11 +2,11 @@ import React from 'react'
 import io from 'socket.io-client'
 import { List, InputItem } from 'antd-mobile'
 import { connect } from 'react-redux'
-import { getMsgList, sendMsg } from './../../redux/chat.redux'
+import { getMsgList, sendMsg,recvMsg } from './../../redux/chat.redux'
 
  
 
-@connect(state => state, { getMsgList, sendMsg })
+@connect(state => state, { getMsgList, sendMsg,recvMsg })
 
 class Chat extends React.Component {
     constructor(props) {
@@ -20,8 +20,8 @@ class Chat extends React.Component {
         // console.log(this.state.msg)
 
         //页面加载后获取聊天列表
-        // this.props.getMsgList()
-
+        this.props.getMsgList()
+        this.props.recvMsg()
     }
 
     handleSubmit() {
