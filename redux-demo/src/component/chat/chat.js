@@ -1,6 +1,6 @@
 import React from 'react'
 import io from 'socket.io-client'
-import { List, InputItem } from 'antd-mobile'
+import { List, InputItem, NavBar } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg,recvMsg } from './../../redux/chat.redux'
 
@@ -36,14 +36,21 @@ class Chat extends React.Component {
     }
 
     render() {
-        console.log(1);
+
+        console.log(this.props)
 
         // console.log(this.props)
         return (
             <div>
-                {this.state.msg.map((v, i) => {
-                    return <p key={i} >{v}</p>
+                <NavBar mode='dark'>
+                    {this.props.match.params.user}  
+                </NavBar>
+                {this.props.chat.chatmsg.map((v, i) => {
+                    return <p key={i} >{v.content}</p>
                 })}
+
+
+
                 <div className="stick-footer">你点击的用户是：{this.props.match.params.user}
                     <List>
                         <InputItem

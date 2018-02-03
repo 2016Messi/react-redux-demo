@@ -18,7 +18,7 @@ Router.get('/list',function(req,res){
 //用户信息列表
 Router.get('/getmsglist',function(req,res){
     const user = req.cookies.user;
-    Chat.findOne({},function(err,doc){
+    Chat.find({ },function(err,doc){
         if(!err){
             return res.json({code:0,msgs:doc})
         }
