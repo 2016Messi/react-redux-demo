@@ -4,6 +4,7 @@ import { List, InputItem, NavBar } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg,recvMsg } from './../../redux/chat.redux'
 
+const Item = List.Item
  
 
 @connect(state => state, { getMsgList, sendMsg,recvMsg })
@@ -38,20 +39,27 @@ class Chat extends React.Component {
     render() {
 
         console.log(this.props)
-
+        const user = this.props.match.params.user;
         // console.log(this.props)
         return (
-            <div>
+            <div id='chat-page'>
                 <NavBar mode='dark'>
                     {this.props.match.params.user}  
                 </NavBar>
                 {this.props.chat.chatmsg.map((v, i) => {
-                    return <p key={i} >{v.content}</p>
+                    return v.from==user?
+                    <List key={i}>
+                        <Item>{v.content}</Item>
+                    </List>
+                    :
+                    <List key={i}>
+                    <Item className='chat-me' extra={'avatar'} >{v.content}</Item>
+                </List>
                 })}
 
 
 
-                <div className="stick-footer">你点击的用户是：{this.props.match.params.user}
+                <div className="stick-footer">
                     <List>
                         <InputItem
                             placeholder='请输入'
