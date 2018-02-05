@@ -21,8 +21,8 @@ class Chat extends React.Component {
         // console.log(this.state.msg)
 
         //页面加载后获取聊天列表
-        this.props.getMsgList()
-        this.props.recvMsg()
+        // this.props.getMsgList()
+        // this.props.recvMsg()
     }
 
     handleSubmit() {
