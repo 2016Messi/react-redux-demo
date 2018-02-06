@@ -22,6 +22,8 @@ class Dashboard extends React.Component {
         this.props.recvMsg()
     }
 
+
+
     render() {
         const user = this.props.user;
         const navList = [{
@@ -54,7 +56,7 @@ class Dashboard extends React.Component {
             component: User
         }
         ]
-        const myTitle = null;
+        const myTitle = 
            this.props.location.pathname==='/login' ?
            null:navList.find(v => v.path === this.props.location.pathname).title
         return (

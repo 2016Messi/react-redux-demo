@@ -18,16 +18,14 @@ class Chat extends React.Component {
         }
     }
     componentDidMount() {
-        // console.log(this.state.msg)
+        if(!this.props.chat.chatmsg.length){
+            this.props.getMsgList()
+            this.props.recvMsg()
+        }
 
-        //页面加载后获取聊天列表
-        // this.props.getMsgList()
-        // this.props.recvMsg()
     }
 
-    handleSubmit() {
-        // console.log(this.props.state);
-     
+    handleSubmit() {     
         this.setState({ text: '' })
         const from = this.props.user._id;   //来自  
         const to = this.props.match.params.user;             //发送至
@@ -39,15 +37,18 @@ class Chat extends React.Component {
     render() {
 
         console.log(this.props)
-        const user = this.props.match.params.user;
-        // console.log(this.props)
+        const userid = this.props.match.params.user;
+        const user = this.props.chat.users;
+            if(!user[userid]){
+                return null
+            }
         return (
             <div id='chat-page'>
                 <NavBar mode='dark'>
-                    {this.props.match.params.user}  
+                    {user[userid].name}
                 </NavBar>
                 {this.props.chat.chatmsg.map((v, i) => {
-                    return v.from==user?
+                    return v.from===userid?
                     <List key={i}>
                         <Item>{v.content}</Item>
                     </List>
