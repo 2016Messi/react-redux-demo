@@ -16,7 +16,7 @@ const models = {
         'desc':{'type':String},
         // 职位名
         'title':{'type':String},
-        //BOSS字段
+        //BOSS字段..........
         'company':{'type':String},
         'money':{'type':String}
     },
