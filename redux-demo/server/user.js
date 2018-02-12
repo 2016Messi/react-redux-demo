@@ -18,7 +18,7 @@ Router.get('/list', function (req, res) {
 //用户信息列表
 Router.get('/getmsglist', function (req, res) {
     const user = req.cookies.userid;
-
+ 
     User.find({}, function (e, userdoc) {
         let users = {};
         userdoc.forEach(v => {
