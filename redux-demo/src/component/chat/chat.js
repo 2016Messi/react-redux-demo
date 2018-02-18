@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 import {List,InputItem,NavBar,Icon, Grid} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, recvMsg } from './../../redux/chat.redux'
+import {getChatId} from '../../until'
 
 const Item = List.Item
 
@@ -17,16 +18,15 @@ class Chat extends React.Component {
             msg: []
         }
     }
-    componentDidMount() {
-        if (!this.props.chat.chatmsg.length) {
-            this.props.getMsgList()
-            this.props.recvMsg()
-        }
-
-    }
+	componentDidMount(){
+		if (!this.props.chat.chatmsg.length) {
+			this.props.getMsgList()
+			this.props.recvMsg()	
+		}
+	}
 
     handleSubmit() {
-        // this.setState({ text: '' })
+        this.setState({ text: '' })
         const from = this.props.user._id;   //来自  
         const to = this.props.match.params.user;             //发送至
         const msg = this.state.text;     //信息内容
@@ -34,11 +34,14 @@ class Chat extends React.Component {
     }
 
     render() {
-        const userid = this.props.match.params.user;
-        const user = this.props.chat.users;
-        if (!user[userid]) {
+        const userid = this.props.match.params.user
+        const users = this.props.chat.users;
+        if (!users[userid]) {
             return null
         }
+        const chatid = getChatId(userid, this.props.user._id)
+        const chatmsgs = this.props.chat.chatmsg.filter(v=>v.chatid===chatid)
+        
         return (
             <div id='chat-page'>
                 <NavBar mode='dark'
@@ -47,25 +50,20 @@ class Chat extends React.Component {
                         this.props.history.goBack()
                     }}
                 >
-                    {user[userid].name}
-                    {console.log(userid)}
+                    {users[userid].name}
                 </NavBar>
-                {this.props.chat.chatmsg.map((v, i) => {
-                    const avatar = require(`../img/${user[v.from].avatar}.png`)
-                    console.log(v.from);
-                     v.from === userid ?
-                        <List key={i}>
-                            {console.log(v)}
+                        {console.log(chatmsgs)}
+                {chatmsgs.map((v, i) => {
+                    const avatar = require(`../img/${users[v.from].avatar}.png`)
+                     return v.from === userid ?
+                        (<List key={i}>
                             <Item thumb={avatar}>{v.content}</Item>
-                        </List>
+                        </List>)
                         :
-                        <List key={i}>
+                        (<List key={i}>
                             <Item className='chat-me' extra={<img src={avatar} />} >{v.content}</Item>
-                        </List>
+                        </List>)
                 })}
-
-
-
                 <div className="stick-footer">
                     <List>
                         <InputItem
@@ -74,7 +72,6 @@ class Chat extends React.Component {
                             value={this.state.text}
                             extra={<span onClick={() => this.handleSubmit()} > 发送 </span>}
                         >
-
                         </InputItem>
                     </List>
                 </div>
