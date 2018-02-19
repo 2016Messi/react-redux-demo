@@ -72,6 +72,8 @@ export function getMsgList() {
                 if (res.status === 200 && res.data.code === 0) {
                     const userid = getState().user._id
                     dispatch(msgList(res.data.msgs, res.data.users, userid))
+                    console.log(userid);
+                    console.log(res.data); 
                 }
             })
     }
